@@ -5,9 +5,10 @@
 # Table of content
 * [Software Requirement](#QRequired-packages)
 * [Quality control](#Quality-control)
-* [Alignment and Filtering](#Alignment-filtering )
+* [Mapping and Filtering](#Alignment-filtering )
 * [Variant Calling](#Variant-calling)
 * [Variant Annotation](#Variant-calling)
+* [Variant filtering](#Variant-filtering)
 * [Visualization](#Visualization)
 
 ## Software Requirement
@@ -38,7 +39,7 @@ It is generally a good idea to generate some quality metrics for raw sequence da
 
 Quality-based trimming as well as Adapter removal can be done in [Flexbar](https://github.com/seqan/flexbar)
 
-## Alignment and filtering 
+## mapping reads onto a reference genome 
 #### Genome indexing
 
 For many model organisms, the genome and pre-built reference indexes are available from [iGenomes](https://support.illumina.com/sequencing/sequencing_software/igenome.html). Bowtie2 indexes can be made directly from [FASTA](ftp://ftp.ensembl.org/pub/release-97/fasta/)genome file using bowtie2-buid. 
@@ -47,33 +48,14 @@ For many model organisms, the genome and pre-built reference indexes are availab
 
 The next step is to align the reads to a reference genome. There are many programs available to perform the alignment. Two of the most popular are [BWA](http://bio-bwa.sourceforge.net/bwa.shtml) and [Bowtie2](http://bowtie-bio.sourceforge.net/index.shtml). Here focus more on Bowtie2.
 
-## Alignment Manipulation
-
-#### Mitochondrial reads
-
-It is known problem that ATAC-seq datasets usually contain a large percentage of reads that are derived from mitochondrial DNA.
-Regardless of lab protocol, it is obvious to have some mitochondrial reads in the sequence data. Otehr hand there are no ATAC-seq peaks of interest in the mitochondrial genome. Therefore, we need to remove mitochondrial genome from further analysis.
-Two way one can proceed.
-
-1. Remove the mitochondrial genome from the reference genome before aligning the reads. In this approach the alignment numbers will look much worse; all of the mitochondrial reads will count as unaligned.
-
-2. Remove the mitochondrial reads after alignment. 
-
-#### PCR duplicates
+#### Remove duplicated mapped reads
 
 During library preparation procedure some PCR artifacts may arise that might interfere with the biological signal of interest 
 Therefore, they should be removed as part of the analysis pipeline before peak calling. 
 One commonly used program for removing PCR duplicates is Picard’s [MarkDuplicates](https://broadinstitute.github.io/picard/). Removal of PCR duplicates may not necessary in Chip seq data. To undertand the flag number and [samtool format](https://www.samformat.info/sam-format-flag) look her. 
 
-#### Non-unique alignments
+#### Quality control of mapped reads
 
-ENCODE or in some papers, people are used to remove unmapped, duplicates and properly mapped reads (samtoolf flag 1796 or 1804) uisng samtools
-
-samtools view -h -b -F 1804 -f 2 ${name}.bam > ${name}.filtered.bam
-
-Remove multi-mapped reads
-
-samtools view -h -q 30 ${name}.bam > ${name}.rmmulti.bam
 
 ## Variant calling
 
@@ -88,6 +70,9 @@ Nucleotide difference vs.some reference at a given position in an individual gen
 
 Annotate the SNP variants connecting to different functional aspects using variant effect predictor[VEP](https://www.ensembl.org/info/docs/tools/vep/index.html). 
 The VCF [file header information](https://software.broadinstitute.org/gatk/documentation/article.php?id=1268)
+
+
+## Genetic variants filtering
 
 ## Visualization
 
