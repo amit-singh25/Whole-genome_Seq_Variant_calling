@@ -44,19 +44,18 @@ The next step is to align the reads to a reference genome. There are many progra
 
 #### Genome indexing
 The genome indexes can build using bwa index
-# bwa index [-a bwtsw|is] index_prefix reference.fasta
+bwa index [-a bwtsw|is] index_prefix reference.fasta
 bwa index -p hg19bwaidx -a bwtsw hg19.fa
-# -p index name (change this to whatever you want)
-# -a index algorithm (bwtsw for long genomes and is for short genomes)
+-p index name (change this to whatever you want)
+-a index algorithm (bwtsw for long genomes and is for short genomes)
+
 #### Align to Reference Genome
 bwa mem -M 
 -M to flag shorter split hits as secondary. This is optional for Picard compatibility as MarkDuplicates can directly process BWA's alignment
 
 #### Remove duplicated mapped reads
+Sometimes due to errors in the sample or library preparation, reads may come from the exact same input DNA template and accumulate at the same start position on the reference genome. Any sequencing error will be multiplied and could lead to artefacts in the downstream variant calling. Although read duplicates could represent true DNA materials, it is impossible to distinguish them from PCR artifacts, which are results of uneven amplification of DNA fragments. To reduce this harmful effect of duplicates prior to variant discovery we will run Remove Duplicated Mapped Reads app based on Picard [MarkDuplicates](https://broadinstitute.github.io/picard/). To determine duplicates Picard MarkDuplicates uses the start coordinates and orientations of both reads of a read pair. Based on the identical 5’mapping coordinates it discards all duplicates with the exception of the “best” copy.
 
-During library preparation procedure some PCR artifacts may arise that might interfere with the biological signal of interest 
-Therefore, they should be removed as part of the analysis pipeline before peak calling. 
-One commonly used program for removing PCR duplicates is Picard’s [MarkDuplicates](https://broadinstitute.github.io/picard/). Removal of PCR duplicates may not necessary in Chip seq data. To undertand the flag number and [samtool format](https://www.samformat.info/sam-format-flag) look her. 
 
 #### Validating BAM files
 It is best practice to validate the BAM file, to make sure there were not issues or mistakes with previous analyses. This is done with [ValidateSamFile](https://broadinstitute.github.io/picard/command-line-overview.html#ValidateSamFile).
