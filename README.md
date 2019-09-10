@@ -40,13 +40,10 @@ It is generally a good idea to generate some quality metrics for raw sequence da
 Quality-based trimming as well as Adapter removal can be done in [Flexbar](https://github.com/seqan/flexbar)
 
 ## Mapping reads onto a reference genome 
+The next step is to align the reads to a reference genome. There are many programs available to perform the alignment. The high efficiency and accuracy alines without allowing large gaps, such as splice junctions is [BWA](http://bio-bwa.sourceforge.net/bwa.shtml). 
+
 #### Genome indexing
 
-For many model organisms, the genome and pre-built reference indexes are available from [iGenomes](https://support.illumina.com/sequencing/sequencing_software/igenome.html). Bowtie2 indexes can be made directly from [FASTA](ftp://ftp.ensembl.org/pub/release-97/fasta/)genome file using bowtie2-buid. 
-
-#### Alignment
-
-The next step is to align the reads to a reference genome. There are many programs available to perform the alignment. Two of the most popular are [BWA](http://bio-bwa.sourceforge.net/bwa.shtml) and [Bowtie2](http://bowtie-bio.sourceforge.net/index.shtml). Here focus more on Bowtie2.
 
 #### Remove duplicated mapped reads
 
