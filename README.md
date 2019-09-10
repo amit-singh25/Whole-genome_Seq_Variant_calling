@@ -5,9 +5,9 @@
 # Table of content
 * [Software Requirement](#QRequired-packages)
 * [Quality control](#Quality-control)
-* [Alignment and filtering](#Alignment-filtering )
-* [Variant calling](#Variant-calling)
-* [Variant Annotation](#Variant Annotation)
+* [Alignment and Filtering](#Alignment-filtering )
+* [Variant Calling](#Variant-calling)
+* [Variant Annotation](#Variant-calling)
 * [Visualization](#Visualization)
 
 ## Software Requirement
