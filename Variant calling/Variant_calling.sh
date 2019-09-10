@@ -26,4 +26,5 @@ vcfutils.pl varFilter ${out}/${name}.bwa_raw.vcf >${out}/${name}.bwa_final_varia
 bgzip ${out}/${name}.bwa_final_variant.vcf
 tabix -p vcf ${out}/${name}.bwa_final_variant.vcf.gz
 
-
+####merged 
+#bcftools merge --merge all -o merged_final_variant.vcf.gz file1.chr19.bwa_final_variant.vcf.gz file3.chr19.bwa_final_variant.vcf.gz
