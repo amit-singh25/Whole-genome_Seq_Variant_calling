@@ -43,7 +43,14 @@ Quality-based trimming as well as Adapter removal can be done in [Flexbar](https
 The next step is to align the reads to a reference genome. There are many programs available to perform the alignment. The high efficiency and accuracy alines without allowing large gaps, such as splice junctions is [BWA](http://bio-bwa.sourceforge.net/bwa.shtml). 
 
 #### Genome indexing
-
+The genome indexes can build using bwa index
+# bwa index [-a bwtsw|is] index_prefix reference.fasta
+bwa index -p hg19bwaidx -a bwtsw hg19.fa
+# -p index name (change this to whatever you want)
+# -a index algorithm (bwtsw for long genomes and is for short genomes)
+#### Align to Reference Genome
+bwa mem -M 
+-M to flag shorter split hits as secondary. This is optional for Picard compatibility as MarkDuplicates can directly process BWA's alignment
 
 #### Remove duplicated mapped reads
 
@@ -51,8 +58,8 @@ During library preparation procedure some PCR artifacts may arise that might int
 Therefore, they should be removed as part of the analysis pipeline before peak calling. 
 One commonly used program for removing PCR duplicates is Picard’s [MarkDuplicates](https://broadinstitute.github.io/picard/). Removal of PCR duplicates may not necessary in Chip seq data. To undertand the flag number and [samtool format](https://www.samformat.info/sam-format-flag) look her. 
 
-#### Quality control of mapped reads
-
+#### Validating BAM files
+It is best practice to validate the BAM file, to make sure there were not issues or mistakes with previous analyses. This is done with [ValidateSamFile](https://broadinstitute.github.io/picard/command-line-overview.html#ValidateSamFile).
 
 ## Variant calling
 
