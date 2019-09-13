@@ -100,6 +100,13 @@ awk '$1 == 10 {print $0}' test.coverage > chr10_test.coverage
 
 awk '$1 == "chr10" {print $0}' test.coverage > chr10_test.coverage
 
+##### Plot the data in R this coverage file 
+test.chr10 <- read.table("~/data/test.coverage",header=FALSE, sep="\t", na.strings="NA", dec=".", strip.white=TRUE)
+library(reshape) 
+
+test.chr10<-rename(test.chr10,c(V1="Chr", V2="locus", V3="depth")) # renames the header
+plot(test.chr10$locus,test.chr10$depth)
+library(lattice, pos=10) xyplot(depth ~ locus, type="p", pch=16, auto.key=list(border=TRUE), par.settings=simpleTheme(pch=16), scales=list(x=list(relation='same'), y=list(relation='same')), data=test.chr10, main="depth by locus - Chr10)")
 
 
 
