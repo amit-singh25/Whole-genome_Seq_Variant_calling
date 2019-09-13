@@ -85,3 +85,23 @@ Create a bigWig file for visualizing the peak covrage using bamCoverage in deepT
 An alternative visualization tool is [Integrative Genomics Viewer](https://software.broadinstitute.org/software/igv/).The Peak files can be loaded directly (File → Load from File). Viewing BAM files with IGV requires sorted (by coordinate) and indexed using SAMtools.
 For making plot BAM file can be converted to bed (bam to bed) using [bedtools](https://bedtools.readthedocs.io/en/latest/content/tools/bamtobed.html) and load to IGV.  
 
+# BAM file Manipulation 
+
+ ##### First identify the depth at each locus from a bam file.
+
+samtools depth test.bam > test.coverage
+
+##### Select the coverage (depth) by locus for each chromosome 
+
+##### To select the coverage for a particular chromosome 
+awk '$1 == 10 {print $0}' test.coverage > chr10_test.coverage
+
+##### If the chrosomosome has string then
+
+awk '$1 == "chr10" {print $0}' test.coverage > chr10_test.coverage
+
+
+
+
+
+
