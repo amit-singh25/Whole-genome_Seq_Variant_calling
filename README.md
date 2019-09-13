@@ -91,6 +91,9 @@ For making plot BAM file can be converted to bed (bam to bed) using [bedtools](h
 
 samtools depth test.bam > test.coverage
 
+###### genomeCoverageBed
+genomeCoverageBed -ibam test.bam -g genome.fasta > coverage.txt
+
 ##### Select the coverage (depth) by locus for each chromosome 
 
 ##### To select the coverage for a particular chromosome 
