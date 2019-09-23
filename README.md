@@ -156,28 +156,28 @@ For making plot BAM file can be converted to bed (bam to bed) using [bedtools](h
 ##### bedtools "intersect"
 It compares two or more BED/BAM/VCF/GFF files and identifies all the regions in the gemome where the features in the two files overlap
 
-``  bedtools intersect -a test1.bed -b test2.bed | head -5 `` 
+```  bedtools intersect -a test1.bed -b test2.bed | head -5 ```
 
 ##### Reporting the original feature in each file of intersect
 
-`` bedtools intersect -a test1.bed -b test2.bed  -wa -wb | head -15 ``
+``` bedtools intersect -a test1.bed -b test2.bed  -wa -wb | head -15 ```
 
 ##### Reporting How many base pairs of overlap between two bed files
 
-`` bedtools intersect -a test1.bed -b test2.bed  -wo | head -10 `` 
+``` bedtools intersect -a test1.bed -b test2.bed  -wo | head -10 ```
 
 ##### Counting the number of overlapping features in two bed files
 
-`` bedtools intersect -a test1.bed -b test2.bed  -c | head -10 ``
+``` bedtools intersect -a test1.bed -b test2.bed  -c | head -10 ```
 
 ##### Find features that DO NOT overlap between two bed files 
 
 `` bedtools intersect -a test1.bed -b test2.bed -v >final.bed ``
 ##### Intersecting multiple bed files at a time
 
-``  bedtools intersect -a test1.bed -b test2.bed test3.bed test4.bed -sorted >final.bed `` 
-`` bedtools intersect -a test1.bed -b test2.bed test3.bed test4.bed -sorted -wa -wb >final.bed ``
-`` bedtools intersect -a test1.bed -b test2.bed test3.bed test4.bed -sorted -wa -wb -names test test2 chrom ``
+``` bedtools intersect -a test1.bed -b test2.bed test3.bed test4.bed -sorted >final.bed ```
+``` bedtools intersect -a test1.bed -b test2.bed test3.bed test4.bed -sorted -wa -wb >final.bed ```
+```bedtools intersect -a test1.bed -b test2.bed test3.bed test4.bed -sorted -wa -wb -names test test2 chrom ```
 
 ##### Bed file sorted
 `` sort -k1,1 -k2,2n test.bed > test.sort.bed ``
