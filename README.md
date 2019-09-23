@@ -85,7 +85,7 @@ Create a bigWig file for visualizing the peak covrage using bamCoverage in deepT
 An alternative visualization tool is [Integrative Genomics Viewer](https://software.broadinstitute.org/software/igv/).The Peak files can be loaded directly (File → Load from File). Viewing BAM files with IGV requires sorted (by coordinate) and indexed using SAMtools.
 For making plot BAM file can be converted to bed (bam to bed) using [bedtools](https://bedtools.readthedocs.io/en/latest/content/tools/bamtobed.html) and load to IGV.  
 
-# BAM file Manipulation 
+# BAM and BED file Manipulation 
 
  ##### First identify the depth at each locus from a bam file.
 
@@ -103,22 +103,30 @@ For making plot BAM file can be converted to bed (bam to bed) using [bedtools](h
 
 ``` awk '$1 == "chr10" {print $0}' test.coverage > chr10_test.coverage ```
 
-##### Plot the data in R this coverage file 
- ``` test.chr10 <- read.table("~/data/test.coverage",header=FALSE, sep="\t", na.strings="NA", dec=".", strip.white=TRUE) ```
-``` library(reshape) ```
-
-``` test.chr10<-rename(test.chr10,c(V1="Chr", V2="locus", V3="depth")) # renames the header ```
-``` plot(test.chr10$locus,test.chr10$depth) ```
-``` library(lattice, pos=10) xyplot(depth ~ locus, type="p", pch=16, auto.key=list(border=TRUE), par.settings=simpleTheme(pch=16), ```  ```scales=list(x=list(relation='same'), y=list(relation='same')), data=test.chr10, main="depth by locus - Chr10)") ```
-
-
 ##### samtools flagstat test.bam 
 
 ```  samtools stats test.bam |grep ^SN | cut -f 2-  ```
 
 ```  samtools view test_sorted.bam | wc -l  ```
 
-http://rstudio-pubs-static.s3.amazonaws.com/334574_1329d2c1f7274328a6309cf61a43feb4.html
+##### Convert BAM To BED file 
+
+``` bedtools bamtobed -i ${out}/${name}_sort.bam >${out}/${name}_sort.bed ```
+
+##### Convert BAM To bigWig file 
+
+`` bamCoverage -b ${out}/${name}_sort.bam -o ${out}/${name}_sort.bigWig `` 
+
+##### Convert BAM file to bedgraph
+
+`` bam2bed < ${out}/${name}_sort.bam | cut -f1-3,5 > ${out}/${name}_sort.bg `` 
+
+##### Convert GTF file to bed file
+
+``  gtf2bed < foo.gtf > foo.bed `` 
+##### bedtools "intersect"
+It compares two or more BED/BAM/VCF/GFF files and identifies all the regions in the gemome where the features in the two files overlap
+
 
 
 ###### CollectAlignmentSummaryMetrics
@@ -128,8 +136,15 @@ http://rstudio-pubs-static.s3.amazonaws.com/334574_1329d2c1f7274328a6309cf61a43f
           ``` O=output.txt  ```
 
 
+##### Plot the data in R this coverage file 
+ ``` test.chr10 <- read.table("~/data/test.coverage",header=FALSE, sep="\t", na.strings="NA", dec=".", strip.white=TRUE) ```
+``` library(reshape) ```
 
+``` test.chr10<-rename(test.chr10,c(V1="Chr", V2="locus", V3="depth")) # renames the header ```
+``` plot(test.chr10$locus,test.chr10$depth) ```
+``` library(lattice, pos=10) xyplot(depth ~ locus, type="p", pch=16, auto.key=list(border=TRUE), par.settings=simpleTheme(pch=16), ```  ```scales=list(x=list(relation='same'), y=list(relation='same')), data=test.chr10, main="depth by locus - Chr10)") ```
 
+http://rstudio-pubs-static.s3.amazonaws.com/334574_1329d2c1f7274328a6309cf61a43feb4.html
 
 
 
