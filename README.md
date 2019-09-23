@@ -105,14 +105,22 @@ For making plot BAM file can be converted to bed (bam to bed) using [bedtools](h
 ``` samtools view -b test.bam chr2 > test_chr2.bam ```
   
 ##### Find insert size
-  ``` bamtools stats -in test_sort.bam  -insert  ``
- ##### convert bam file t various format 
+ ``` bamtools stats -in test_sort.bam  -insert ```
+  
+##### convert bam file t various format 
+ 
  `` bamtools convert -format json -in test_sort.bam -out myData.json ``
+ 
  `` bamtools convert -format fasta -in test_sort.bam -out myData.fasta ``
+ 
  `` bamtools convert -format fastq -in test_sort.bam -out myData.fastq ``
+ 
  `` bamtools convert -format sam -in test_sort.bam -out myData.sam ``
+ 
  `` bamtools convert -format pileup -in test_sort.bam -out myData.pileup ``
+ 
  `` bamtools convert -format yaml -in test_sort.bam -out myData.yaml ``
+ 
  `` bamtools convert -format bed -in test_sort.bam -out myData.bed ``
  
  
@@ -176,7 +184,9 @@ It compares two or more BED/BAM/VCF/GFF files and identifies all the regions in 
 ##### Intersecting multiple bed files at a time
 
 ``` bedtools intersect -a test1.bed -b test2.bed test3.bed test4.bed -sorted >final.bed ```
+
 ``` bedtools intersect -a test1.bed -b test2.bed test3.bed test4.bed -sorted -wa -wb >final.bed ```
+
 ```bedtools intersect -a test1.bed -b test2.bed test3.bed test4.bed -sorted -wa -wb -names test test2 chrom ```
 
 ##### Bed file sorted
