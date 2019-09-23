@@ -90,13 +90,19 @@ For making plot BAM file can be converted to bed (bam to bed) using [bedtools](h
 ##### Count properly paired alignments are there in the bam file ?
 
 ``` samtools view -f 0x2 test.sorted.bam | wc -l ```
+
 ##### Count alignments that are NOT properly paired
  
 ``` samtools view -F 0x2 test.sorted.bam ```
+
 ```  samtools view -S -b test.sam > test.bam  ```
+
 ``` samtools sort test.bam -o test.sorted.bam ```
+
 ``` samtools index test.sorted.bam ```
+
 ``` samtools view -f 0x2 test.sorted.bam | wc -l ```
+
 #####  Filtering out unmapped reads in BAM files
 ``` samtools view -h -F 4 -b test.sorted.bam > test_only_mapped.bam ```
 
@@ -202,6 +208,7 @@ d is the distance in the. For example, to merge features that are no more than 1
 `` bedtools jaccard  -a test1.bed  -b test2.bed ``
 
 ###### CollectAlignmentSummaryMetrics
+ 
  ``` picard CollectAlignmentSummaryMetrics \ ```
           ``` R=genome.fasta \ ```
           ``` I=input.bam \ ```
