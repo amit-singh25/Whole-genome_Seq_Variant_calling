@@ -137,13 +137,6 @@ For making plot BAM file can be converted to bed (bam to bed) using [bedtools](h
 
 `` bam2bed < ${out}/${name}_sort.bam | cut -f1-3,5 > ${out}/${name}_sort.bg `` 
 
-
-
-##### Convert GTF file to bed file
-
-``  gtf2bed < foo.gtf > foo.bed `` 
-
- 
  ##### First identify the depth at each locus from a bam file.
 
 ``` samtools depth test.bam > test.coverage ```
@@ -200,6 +193,15 @@ It compares two or more BED/BAM/VCF/GFF files and identifies all the regions in 
 ##### Get genomecovrage 
 ``  bedtools genomecov -i test.bed -g genome.txt `` 
 
+``  multiBamSummary bins --bamfiles test1.bam test2.bam test3.bam --minMappingQuality 30 -out readCounts.npz --outRawCounts readCounts.tab `` 
+
+Filter the bam covrage only for chr19. 
+
+``  awk '$1 == "19"' readCounts.tab >all_bam_covrage.txt `` 
+``  awk '$1 == "19"' readCounts.tab >all_bam_covrage.bed `` 
+
+
+
 ##### Merging features that are close to one another in a bed file
 d is the distance in the. For example, to merge features that are no more than 100bp apart, one would run:
 ``  bedtools merge -i test.bed -d 100 -c 1 -o count | head -10 `` 
@@ -212,6 +214,19 @@ d is the distance in the. For example, to merge features that are no more than 1
           ``` R=genome.fasta \ ```
           ``` I=input.bam \ ```
           ``` O=output.txt  ```
+
+
+#### Convert gtf file to bed file 
+
+get -qO- ftp://ftp.ebi.ac.uk/pub/databases/gencode/Gencode_human/release_28/gencode.v28.annotation.gff3.gz \
+    | gunzip --stdout - \
+    | awk '$3 == "gene"' - \
+    | convert2bed -i gff - \
+    > genes.bed
+
+
+
+
 
 
 ##### Plot the data in R this coverage file 
