@@ -95,7 +95,7 @@ For making plot BAM file can be converted to bed (bam to bed) using [bedtools](h
  
 ``` samtools view -F 0x2 test.sorted.bam ```
 
-```  samtools view -S -b test.sam > test.bam  ```
+
 
 ``` samtools sort test.bam -o test.sorted.bam ```
 
@@ -113,7 +113,9 @@ For making plot BAM file can be converted to bed (bam to bed) using [bedtools](h
 ##### Find insert size
  ``` bamtools stats -in test_sort.bam  -insert ```
   
-##### convert bam file t various format 
+##### Convert bam file to various file format 
+
+```  samtools view -S -b test.sam > test.bam  ```
  
  `` bamtools convert -format json -in test_sort.bam -out myData.json ``
  
@@ -129,6 +131,18 @@ For making plot BAM file can be converted to bed (bam to bed) using [bedtools](h
  
  `` bamtools convert -format bed -in test_sort.bam -out myData.bed ``
  
+ ``` bedtools bamtobed -i ${out}/${name}_sort.bam >${out}/${name}_sort.bed ```
+ 
+`` bamCoverage -b ${out}/${name}_sort.bam -o ${out}/${name}_sort.bigWig `` 
+
+`` bam2bed < ${out}/${name}_sort.bam | cut -f1-3,5 > ${out}/${name}_sort.bg `` 
+
+
+
+##### Convert GTF file to bed file
+
+``  gtf2bed < foo.gtf > foo.bed `` 
+
  
  ##### First identify the depth at each locus from a bam file.
 
@@ -152,21 +166,6 @@ For making plot BAM file can be converted to bed (bam to bed) using [bedtools](h
 
 ```  samtools view test_sorted.bam | wc -l  ```
 
-##### Convert BAM To BED file 
-
-``` bedtools bamtobed -i ${out}/${name}_sort.bam >${out}/${name}_sort.bed ```
-
-##### Convert BAM To bigWig file 
-
-`` bamCoverage -b ${out}/${name}_sort.bam -o ${out}/${name}_sort.bigWig `` 
-
-##### Convert BAM file to bedgraph
-
-`` bam2bed < ${out}/${name}_sort.bam | cut -f1-3,5 > ${out}/${name}_sort.bg `` 
-
-##### Convert GTF file to bed file
-
-``  gtf2bed < foo.gtf > foo.bed `` 
 ##### bedtools "intersect"
 It compares two or more BED/BAM/VCF/GFF files and identifies all the regions in the gemome where the features in the two files overlap
 
