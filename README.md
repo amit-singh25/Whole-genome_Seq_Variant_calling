@@ -198,7 +198,7 @@ It compares two or more BED/BAM/VCF/GFF files and identifies all the regions in 
 Filter the bam covrage only for chr19. 
 
 ``  awk '$1 == "19"' readCounts.tab >all_bam_covrage.txt `` 
-``  awk '$1 == "19"' readCounts.tab >all_bam_covrage.bed `` 
+
 
 
 
