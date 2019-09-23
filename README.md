@@ -178,7 +178,7 @@ It compares two or more BED/BAM/VCF/GFF files and identifies all the regions in 
 
 ##### Find features that DO NOT overlap between two bed files 
 
-`` bedtools intersect -a test1.bed -b test2.bed -v >final.bed ``
+``` bedtools intersect -a test1.bed -b test2.bed -v >final.bed ```
 ##### Intersecting multiple bed files at a time
 
 ``` bedtools intersect -a test1.bed -b test2.bed test3.bed test4.bed -sorted >final.bed ```
@@ -188,16 +188,16 @@ It compares two or more BED/BAM/VCF/GFF files and identifies all the regions in 
 ```bedtools intersect -a test1.bed -b test2.bed test3.bed test4.bed -sorted -wa -wb -names test test2 chrom ```
 
 ##### Bed file sorted
-`` sort -k1,1 -k2,2n test.bed > test.sort.bed ``
+``` sort -k1,1 -k2,2n test.bed > test.sort.bed ```
 
 ##### Get genomecovrage 
-``  bedtools genomecov -i test.bed -g genome.txt `` 
+```  bedtools genomecov -i test.bed -g genome.txt ```
 
-``  multiBamSummary bins --bamfiles test1.bam test2.bam test3.bam --minMappingQuality 30 -out readCounts.npz --outRawCounts readCounts.tab `` 
+```  multiBamSummary bins --bamfiles test1.bam test2.bam test3.bam --minMappingQuality 30 -out readCounts.npz --outRawCounts readCounts.tab `` 
 
 Filter the bam covrage only for chr19. 
 
-``  awk '$1 == "19"' readCounts.tab >all_bam_covrage.txt `` 
+```  awk '$1 == "19"' readCounts.tab >all_bam_covrage.txt `` `
 
 
 
@@ -210,33 +210,36 @@ d is the distance in the. For example, to merge features that are no more than 1
 
 ###### CollectAlignmentSummaryMetrics
  
- ``` picard CollectAlignmentSummaryMetrics \ ```
-          ``` R=genome.fasta \ ```
-          ``` I=input.bam \ ```
-          ``` O=output.txt  ```
+ ``` 
+ picard CollectAlignmentSummaryMetrics \ 
+        R=genome.fasta \
+        I=input.bam \
+        O=output.txt 
+ ```
 
 
 #### Convert gtf file to bed file 
-
+```
 get -qO- ftp://ftp.ebi.ac.uk/pub/databases/gencode/Gencode_human/release_28/gencode.v28.annotation.gff3.gz \
     | gunzip --stdout - \
     | awk '$3 == "gene"' - \
     | convert2bed -i gff - \
     > genes.bed
-
+```
 
 
 
 
 
 ##### Plot the data in R this coverage file 
- ``` test.chr10 <- read.table("~/data/test.coverage",header=FALSE, sep="\t", na.strings="NA", dec=".", strip.white=TRUE) ```
-``` library(reshape) ```
+``` 
+test.chr10 <- read.table("~/data/test.coverage",header=FALSE, sep="\t", na.strings="NA", dec=".", strip.white=TRUE)
+library(reshape)
 
-``` test.chr10<-rename(test.chr10,c(V1="Chr", V2="locus", V3="depth")) # renames the header ```
-``` plot(test.chr10$locus,test.chr10$depth) ```
-``` library(lattice, pos=10) xyplot(depth ~ locus, type="p", pch=16, auto.key=list(border=TRUE), par.settings=simpleTheme(pch=16), ```  ```scales=list(x=list(relation='same'), y=list(relation='same')), data=test.chr10, main="depth by locus - Chr10)") ```
-
+test.chr10<-rename(test.chr10,c(V1="Chr", V2="locus", V3="depth")) # renames the header
+plot(test.chr10$locus,test.chr10$depth)
+library(lattice, pos=10) xyplot(depth ~ locus, type="p", pch=16, auto.key=list(border=TRUE), par.settings=simpleTheme(pch=16), scales=list(x=list(relation='same'), y=list(relation='same')), data=test.chr10, main="depth by locus - Chr10)") 
+```
 http://rstudio-pubs-static.s3.amazonaws.com/334574_1329d2c1f7274328a6309cf61a43feb4.html
 
 
