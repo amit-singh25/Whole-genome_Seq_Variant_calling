@@ -105,15 +105,15 @@ For making plot BAM file can be converted to bed (bam to bed) using [bedtools](h
 ``` samtools view -b test.bam chr2 > test_chr2.bam ```
   
 ##### Find insert size
-  ``` bamtools stats -in test_sort.bam  -insert  ```
+  ``` bamtools stats -in test_sort.bam  -insert  ``
  ##### convert bam file t various format 
- ``` bamtools convert -format json -in test_sort.bam -out myData.json ```
- ``` bamtools convert -format fasta -in test_sort.bam -out myData.fasta ```
- ``` bamtools convert -format fastq -in test_sort.bam -out myData.fastq ```
- ``` bamtools convert -format sam -in test_sort.bam -out myData.sam  ```
- ``` bamtools convert -format pileup -in test_sort.bam -out myData.pileup ```
- ``` bamtools convert -format yaml -in test_sort.bam -out myData.yaml ```
- ``` bamtools convert -format bed -in test_sort.bam -out myData.bed ```
+ `` bamtools convert -format json -in test_sort.bam -out myData.json ``
+ `` bamtools convert -format fasta -in test_sort.bam -out myData.fasta ``
+ `` bamtools convert -format fastq -in test_sort.bam -out myData.fastq ``
+ `` bamtools convert -format sam -in test_sort.bam -out myData.sam ``
+ `` bamtools convert -format pileup -in test_sort.bam -out myData.pileup ``
+ `` bamtools convert -format yaml -in test_sort.bam -out myData.yaml ``
+ `` bamtools convert -format bed -in test_sort.bam -out myData.bed ``
  
  
  ##### First identify the depth at each locus from a bam file.
