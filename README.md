@@ -87,6 +87,35 @@ For making plot BAM file can be converted to bed (bam to bed) using [bedtools](h
 
 # BAM and BED file Manipulation 
 
+##### Count properly paired alignments are there in the bam file ?
+
+``` samtools view -f 0x2 test.sorted.bam | wc -l ```
+##### Count alignments that are NOT properly paired
+ 
+``` samtools view -F 0x2 test.sorted.bam ```
+```  samtools view -S -b test.sam > test.bam  ```
+``` samtools sort test.bam -o test.sorted.bam ```
+``` samtools index test.sorted.bam ```
+``` samtools view -f 0x2 test.sorted.bam | wc -l ```
+#####  Filtering out unmapped reads in BAM files
+``` samtools view -h -F 4 -b test.sorted.bam > test_only_mapped.bam ```
+
+
+#####  All reads mapping on ch21 as another bam
+``` samtools view -b test.bam chr2 > test_chr2.bam ```
+  
+##### Find insert size
+  ``` bamtools stats -in test_sort.bam  -insert  ```
+ ##### convert bam file t various format 
+ ``` bamtools convert -format json -in test_sort.bam -out myData.json ```
+ ``` bamtools convert -format fasta -in test_sort.bam -out myData.fasta ```
+ ``` bamtools convert -format fastq -in test_sort.bam -out myData.fastq ```
+ ``` bamtools convert -format sam -in test_sort.bam -out myData.sam  ```
+ ``` bamtools convert -format pileup -in test_sort.bam -out myData.pileup ```
+ ``` bamtools convert -format yaml -in test_sort.bam -out myData.yaml ```
+ ``` bamtools convert -format bed -in test_sort.bam -out myData.bed ```
+ 
+ 
  ##### First identify the depth at each locus from a bam file.
 
 ``` samtools depth test.bam > test.coverage ```
