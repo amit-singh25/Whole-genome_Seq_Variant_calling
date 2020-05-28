@@ -1,7 +1,6 @@
 # Whole genome Sequencing and Variant calling and Variant Annotation
 
 
-
 # Table of content
 * [Software Requirement](#QRequired-packages)
 * [Quality control](#Quality-control)
@@ -30,8 +29,16 @@ Following softwear can be install in the cluster either from source code or from
 
 [Bcftools](https://samtools.github.io/bcftools/bcftools.html)
 
-
 R environment 
+conda install -c bioconda samtools
+conda install -c bioconda bamtools
+conda install -c bioconda bedtools
+conda install -c bioconda vcflib
+conda install -c bioconda bcftools
+conda install -c bioconda tabix
+conda install -c bioconda htseq
+conda install -c bioconda qualimap
+
 ## Quality control
 
 ### FastQC
@@ -43,6 +50,7 @@ Quality-based trimming as well as Adapter removal can be done in [Flexbar](https
 The next step is to align the reads to a reference genome. There are many programs available to perform the alignment. The high efficiency and accuracy alines without allowing large gaps, such as splice junctions is [BWA](http://bio-bwa.sourceforge.net/bwa.shtml). 
 
 #### Genome indexing
+
 The genome indexes can build using bwa index
 bwa index [-a bwtsw|is] index_prefix reference.fasta
 bwa index -p hg19bwaidx -a bwtsw hg19.fa
@@ -50,6 +58,7 @@ bwa index -p hg19bwaidx -a bwtsw hg19.fa
 -a index algorithm (bwtsw for long genomes and is for short genomes)
 
 #### Align to Reference Genome
+
 bwa mem -M 
 -M to flag shorter split hits as secondary. This is optional for Picard compatibility as MarkDuplicates can directly process BWA's alignment
 
@@ -95,8 +104,6 @@ For making plot BAM file can be converted to bed (bam to bed) using [bedtools](h
  
 ``` samtools view -F 0x2 test.sorted.bam ```
 
-
-
 ``` samtools sort test.bam -o test.sorted.bam ```
 
 ``` samtools index test.sorted.bam ```
@@ -104,13 +111,15 @@ For making plot BAM file can be converted to bed (bam to bed) using [bedtools](h
 ``` samtools view -f 0x2 test.sorted.bam | wc -l ```
 
 #####  Filtering out unmapped reads in BAM files
+
 ``` samtools view -h -F 4 -b test.sorted.bam > test_only_mapped.bam ```
 
-
 #####  All reads mapping on ch21 as another bam
+
 ``` samtools view -b test.bam chr2 > test_chr2.bam ```
   
 ##### Find insert size
+ 
  ``` bamtools stats -in test_sort.bam  -insert ```
   
 ##### Convert bam file to various file format 
@@ -131,7 +140,7 @@ For making plot BAM file can be converted to bed (bam to bed) using [bedtools](h
  
  `` bamtools convert -format bed -in test_sort.bam -out myData.bed ``
  
- ``` bedtools bamtobed -i ${out}/${name}_sort.bam >${out}/${name}_sort.bed ```
+ ``` bedtools bamtobed -i test_sort.bam >test_sort.bed ```
  
 `` bamCoverage -b test_sort.bam -o test_sort.bigWig `` 
 
@@ -142,11 +151,13 @@ For making plot BAM file can be converted to bed (bam to bed) using [bedtools](h
 ``` samtools depth test.bam > test.coverage ```
 
 ###### genomeCoverageBed
+
 ``` genomeCoverageBed -ibam test.bam -g genome.fasta > coverage.txt```
 
 ##### Select the coverage (depth) by locus for each chromosome 
 
 ##### To select the coverage for a particular chromosome 
+
 ``` awk '$1 == 10 {print $0}' test.coverage > chr10_test.coverage```
 
 ##### If the chrosomosome has string then
@@ -160,6 +171,7 @@ For making plot BAM file can be converted to bed (bam to bed) using [bedtools](h
 ```  samtools view test_sorted.bam | wc -l  ```
 
 ##### bedtools "intersect"
+
 It compares two or more BED/BAM/VCF/GFF files and identifies all the regions in the gemome where the features in the two files overlap
 
 ```  bedtools intersect -a test1.bed -b test2.bed | head -5 ```
@@ -179,6 +191,7 @@ It compares two or more BED/BAM/VCF/GFF files and identifies all the regions in 
 ##### Find features that DO NOT overlap between two bed files 
 
 `` bedtools intersect -a test1.bed -b test2.bed -v >final.bed ``
+
 ##### Intersecting multiple bed files at a time
 
 ``` bedtools intersect -a test1.bed -b test2.bed test3.bed test4.bed -sorted >final.bed ```
@@ -188,9 +201,11 @@ It compares two or more BED/BAM/VCF/GFF files and identifies all the regions in 
 ```bedtools intersect -a test1.bed -b test2.bed test3.bed test4.bed -sorted -wa -wb -names test test2 chrom ```
 
 ##### Bed file sorted
+
 `` sort -k1,1 -k2,2n test.bed > test.sort.bed ``
 
 ##### Get genomecovrage 
+
 ``  bedtools genomecov -i test.bed -g genome.txt `` 
 
 ``  multiBamSummary bins --bamfiles test1.bam test2.bam test3.bam --minMappingQuality 30 -out readCounts.npz --outRawCounts readCounts.tab `` 
@@ -199,13 +214,14 @@ Filter the bam covrage only for chr19.
 
 ``  awk '$1 == "19"' readCounts.tab >all_bam_covrage.txt `` 
 
-
-
-
 ##### Merging features that are close to one another in a bed file
+
 d is the distance in the. For example, to merge features that are no more than 100bp apart, one would run:
+
 ``  bedtools merge -i test.bed -d 100 -c 1 -o count | head -10 `` 
+
 ##### Jaccard statistic to meaure the similarity of two datasets in the bed file
+
 `` bedtools jaccard  -a test1.bed  -b test2.bed ``
 
 ###### CollectAlignmentSummaryMetrics
@@ -223,11 +239,6 @@ get -qO- ftp://ftp.ebi.ac.uk/pub/databases/gencode/Gencode_human/release_28/genc
     | awk '$3 == "gene"' - \
     | convert2bed -i gff - \
     > genes.bed
-
-
-
-
-
 
 ##### Plot the data in R this coverage file 
  ``` test.chr10 <- read.table("~/data/test.coverage",header=FALSE, sep="\t", na.strings="NA", dec=".", strip.white=TRUE) ```
