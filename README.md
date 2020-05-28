@@ -133,9 +133,9 @@ For making plot BAM file can be converted to bed (bam to bed) using [bedtools](h
  
  ``` bedtools bamtobed -i ${out}/${name}_sort.bam >${out}/${name}_sort.bed ```
  
-`` bamCoverage -b ${out}/${name}_sort.bam -o ${out}/${name}_sort.bigWig `` 
+`` bamCoverage -b test_sort.bam -o test_sort.bigWig `` 
 
-`` bam2bed < ${out}/${name}_sort.bam | cut -f1-3,5 > ${out}/${name}_sort.bg `` 
+`` bam2bed < test_sort.bam | cut -f1-3,5 > test_sort.bg `` 
 
  ##### First identify the depth at each locus from a bam file.
 
