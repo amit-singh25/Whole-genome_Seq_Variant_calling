@@ -125,7 +125,7 @@ For making plot BAM file can be converted to bed (bam to bed) using [bedtools](h
   
 ##### Convert bam file to various file format 
 
-```  samtools view -S -b test.sam > test.bam  ```
+``` samtools view -S -b test.sam > test.bam  ```
  
  `` bamtools convert -format json -in test_sort.bam -out myData.json ``
  
