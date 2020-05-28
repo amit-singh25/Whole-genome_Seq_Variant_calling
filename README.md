@@ -29,16 +29,7 @@ Following softwear can be install in the cluster either from source code or from
 
 [Bcftools](https://samtools.github.io/bcftools/bcftools.html)
 
-##  Installation
-```R environment 
-```conda install -c bioconda samtools```
-```conda install -c bioconda bamtools```
-```conda install -c bioconda bedtools```
-```conda install -c bioconda vcflib```
-```conda install -c bioconda bcftools```
-```conda install -c bioconda tabix```
-```conda install -c bioconda htseq```
-```conda install -c bioconda qualimap```
+
 
 ## Quality control
 
