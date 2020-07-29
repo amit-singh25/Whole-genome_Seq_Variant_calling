@@ -213,6 +213,9 @@ It compares two or more BED/BAM/VCF/GFF files and identifies all the regions in 
 
 `` sort -k1,1 -k2,2n test.bed > test.sort.bed ``
 
+##### Get covrage from specific region
+``samtools mpileup -r 'VII:3,120,957-3,147,147' accepted_hits.bam | awk 'BEGIN{C=0}; {C=C+$4}; END{print C "\t" C/NR}' ``
+
 ##### Get genomecovrage 
 
 ``  bedtools genomecov -i test.bed -g genome.txt `` 
