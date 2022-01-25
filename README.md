@@ -28,8 +28,8 @@ Following softwear can be install in the cluster either from source code or from
 [deepTools](https://deeptools.readthedocs.io/en/develop/)
 
 [Bcftools](https://samtools.github.io/bcftools/bcftools.html)
+
 ## Installation
-```R environment```
 
 ```conda install -c bioconda samtools```
 
