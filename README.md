@@ -265,8 +265,6 @@ get -qO- ftp://ftp.ebi.ac.uk/pub/databases/gencode/Gencode_human/release_28/genc
 
 ``` scales=list(x=list(relation='same'), y=list(relation='same')), data=test.chr10, main="depth by locus - Chr10)") ```
 
-http://rstudio-pubs-static.s3.amazonaws.com/334574_1329d2c1f7274328a6309cf61a43feb4.html
-
 
 
 
